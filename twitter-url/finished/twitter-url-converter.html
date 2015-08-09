@@ -1,0 +1,105 @@
+<link rel="import" href="../components/polymer/polymer.html">
+<link rel="import" href="../components/core-icon-button/core-icon-button.html">
+<polymer-element name="twitter-url-converter">
+  <template>
+    <style>
+    :host {
+      display: block;
+      position: relative;
+      padding: 20px;
+      width: 100%;
+      font-size: 1.2rem;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+    post-card {
+    	/* background-color: white; */
+    	margin-bottom: 10px;
+    }
+    #source {
+    	font-family: RobotoDraft;
+	    font-size: 1.15rem;
+	    font-weight: 300;
+    }
+    #source, #target {
+    	width: 80%;
+    	border-radius: 5px;
+    	padding: 20px;
+    	resize: none;
+    }
+    #target {
+    	background-color: #ddd;
+    	word-wrap: break-word;
+    }
+    #count {
+    	margin-top: 10px;
+    	width: 80%;
+    	text-align: right;
+    }
+    #example {
+    	width: 80%;
+    	text-align: right;
+    	margin-bottom: 0;
+    }
+    #help {
+    	padding-right: 20px;
+    }
+    </style>
+
+    <div class="twitter-url-converter-header" layout vertical center>
+      <post-card>
+          <h2>
+            <core-icon icon="create"></core-icon> 1. Compose your tweet
+          </h2>
+          <div horizontal center-justified layout>
+          	<textarea rows="4" id="source" name="source" value="{{source}}" on-input="{{updateModel}}">
+          	</textarea>
+          </div>
+          <div horizontal center-justified layout>
+          	<div id="count" style="color: {{countColor}}">{{count}}</div>
+          </div>
+      </post-card>
+      <post-card on-click="{{selectLink}}">
+        <h2>
+          <core-icon icon="link"></core-icon> 2. Copy your link
+        </h2>
+        <div horizontal center-justified layout>
+          <div id="target">
+            {{target}}
+          </div>
+        </div>
+        <div horizontal center-justified layout>
+          <p id="example">Example: <a href="{{target}}" target="_blank">Tweet this!</a></p>
+        </div>
+      </post-card>
+      <div horizontal layout>
+      <div self-center id="help">
+        <core-icon icon="help"></core-icon>
+      </div>
+      <div flex><p>Use this tool to get a link to share with others that will prepopulate text in their browser or on their phone.</p>
+      </div>
+    </div>
+    <content></content>   
+  </template>
+  <script>
+  Polymer('twitter-url-converter', {
+      // initialize the element's model
+      ready: function() {
+        this.source = 'This is just an example @POTUS #hashtag';
+        this.updateModel();
+      },
+      updateModel: function() {
+      	var countColor = "#666";
+      	var source = this.source;
+      	this.count = (140 - this.source.length);
+      	if (this.count < 11) {
+      		countColor = "#D00";
+      	}
+      	this.countColor = countColor;
+      	source = source.split(' ').join('+').replace("%", "%25").replace("&", "%26").replace("#", "%23");
+      	this.target = 'http://twitter.com/intent/tweet?text=' + source;
+	    console.log('Converted.');
+	  }
+    });
+  </script>
+</polymer-element>
