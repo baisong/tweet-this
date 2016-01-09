@@ -85,24 +85,23 @@
     <content></content>   
   </template>
   <script>
-  Polymer('twitter-url-converter', {
-      // initialize the element's model
-      ready: function() {
-        this.source = 'This is just an example @POTUS #hashtag';
-        this.updateModel();
-      },
-      updateModel: function() {
-      	var countColor = "#666";
-      	var source = this.source;
-      	this.count = (140 - this.source.length);
-      	if (this.count < 11) {
-      		countColor = "#D00";
-      	}
-      	this.countColor = countColor;
-      	source = encodeURIComponent(source.split(' ').join('+'));
-      	this.target = 'http://twitter.com/intent/tweet?text=' + source;
-	    console.log('Converted.');
-	  }
-    });
+Polymer('twitter-url-converter', {
+  // initialize the element's model
+  ready: function () {
+    this.source = 'This is just an example @POTUS #hashtag';
+    this.updateModel();
+  },
+  updateModel: function () {
+    var countColor = '#666';
+    var source = this.source;
+    this.count = (140 - this.source.length);
+    if (this.count < 11) {
+      countColor = '#D00';
+    }
+    this.countColor = countColor;
+    this.target = 'http://twitter.com/intent/tweet?text=' + encodeURIComponent(source);
+    console.log('Converted.');
+  }
+});
   </script>
 </polymer-element>
