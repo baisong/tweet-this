@@ -2,7 +2,7 @@
 
 A little tool written in [Polymer](http://polymer-project.org/).
 
-* [Demo](http://baisong.github.io/tweet-this)
+* [Demo](http://tweetthis.link)
 
 ## About
 
