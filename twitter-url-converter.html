@@ -99,7 +99,7 @@
       		countColor = "#D00";
       	}
       	this.countColor = countColor;
-      	source = source.split(' ').join('+').replace("%", "%25").replace("&", "%26").replace("#", "%23");
+      	source = encodeURIComponent(source.split(' ').join('+'));
       	this.target = 'http://twitter.com/intent/tweet?text=' + source;
 	    console.log('Converted.');
 	  }
